@@ -1,5 +1,4 @@
-# ChickenDiseaseClassificationDLProject
-## Worklflows
+<!-- ##ChickenDiseaseClassificationDLProject## Worklflows
 
 1. update config.yaml
 2. update secrets.yamml [optional]
@@ -10,4 +9,4 @@
 7. update the pipeline
 8. update the main.py
 9. update the dvc.yaml
-
+ -->
