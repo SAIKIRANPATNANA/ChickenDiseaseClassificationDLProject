@@ -33,7 +33,7 @@ def create_directories(path_to_directories : list, verbose = True):
 def save_json(path: Path, data: dict):
     with open(path, "w") as f:
         json.dump(data,f,indent=4)
-    logger.inof(f"json file saved at : {path}")
+    logger.info(f"json file saved at : {path}")
 
 @ensure_annotations 
 def load_json(path:Path)-> ConfigBox:

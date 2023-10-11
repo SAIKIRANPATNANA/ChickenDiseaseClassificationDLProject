@@ -1,7 +1,8 @@
 from ChickenDiseaseClassification.constants import *
 from ChickenDiseaseClassification.utils.common import read_yaml,create_directories
-from ChickenDiseaseClassification.entity.config_entity import DataIngestionConfig,BaseModelPrepConfig,CallBacksPrepConfig,ModelTrainingConfig
+from ChickenDiseaseClassification.entity.config_entity import DataIngestionConfig,BaseModelPrepConfig,CallBacksPrepConfig,ModelTrainingConfig,ModelEvaluationConfig
 import os
+from pathlib import Path
 class ConfigurationManager:
     def __init__(self,config_file_path=CONFIG_FILE_PATH,params_file_path=PARAMS_FILE_PATH):
         self.config = read_yaml(config_file_path)
@@ -39,8 +40,12 @@ class ConfigurationManager:
         params = self.params
         training_data = os.path.join(self.config.data_ingestion.unzip_dir, "Chicken-fecal-images")
         create_directories([Path(model_training.root_dir)])
-        model_traing_config = ModelTrainingConfig(root_dir=Path(model_training.root_dir), trained_model_path=Path(model_training.trained_model_path),updated_base_model_path=Path(base_model_prep.updated_base_model_path),training_data=Path(training_data), params_epochs=params.EPOCHS, params_batch_size=params.BATCH_SIZE, params_is_augmentation=params.AUGMENTATION, params_image_size=params.IMAGE_SIZE)
-        return model_traing_config
+        model_training_config = ModelTrainingConfig(root_dir=Path(model_training.root_dir), trained_model_path=Path(model_training.trained_model_path),updated_base_model_path=Path(base_model_prep.updated_base_model_path),training_data=Path(training_data), params_epochs=params.EPOCHS, params_batch_size=params.BATCH_SIZE, params_is_augmentation=params.AUGMENTATION, params_image_size=params.IMAGE_SIZE)
+        return model_training_config
+    def GetModelEvaluationConfig(self)->ModelEvaluationConfig:
+        model_evaluation_config = ModelEvaluationConfig(path_of_model=Path("artifacts/training/model.h5"), training_data=Path("artifacts/data_ingestion/Chicken-fecal-images"),all_params=self.params,params_image_size=self.params.IMAGE_SIZE,params_batch_size=self.params.BATCH_SIZE)
+        return model_evaluation_config
+    
 
 
     
