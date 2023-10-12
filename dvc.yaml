@@ -22,10 +22,10 @@ stages:
       - artifacts/base_model_prep
 
   training:
-    cmd: python src/ChickenDiseaseClassificationion/pipeline/stage_03_modeltraining.py
+    cmd: python src/ChickenDiseaseClassification/pipeline/stage_03_modeltraining.py
     deps:
-      - src/ChickenDiseaseClassificationion/pipeline/stage_03_modeltraining.py
-      - src/ChickenDiseaseClassificationion/components/callbacksprep.py
+      - src/ChickenDiseaseClassification/pipeline/stage_03_modeltraining.py
+      - src/ChickenDiseaseClassification/components/callbacksprep.py
       - config/config.yaml
       - artifacts/data_ingestion/Chicken-fecal-images
       - artifacts/base_model_prep
@@ -35,12 +35,12 @@ stages:
       - BATCH_SIZE
       - AUGMENTATION
     outs:
-      - artifacts/training.model.h5
+      - artifacts/training/model.h5
 
   evaluation:
-    cmd: python src/ChickenDiseaseClassification/pipeline/stage_04_evaluation.py
+    cmd: python src/ChickenDiseaseClassification/pipeline/stage_04_modelevaluation.py
     deps:
-      - src/ChickenDiseaseClassification/pipeline/stage_04_evaluation.py
+      - src/ChickenDiseaseClassification/pipeline/stage_04_modelevaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/Chicken-fecal-images
       - artifacts/training/model.h5
@@ -48,5 +48,5 @@ stages:
       - IMAGE_SIZE
       - BATCH_SIZE
     metrics:
-      - score.json:
+      - scores.json:
           cache: false
