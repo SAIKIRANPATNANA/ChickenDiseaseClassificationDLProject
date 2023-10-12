@@ -23,7 +23,8 @@ list_of_files = [
     "research/trials.ipynb",
     "templates/index.html",
     "main.py",
-    "test.ipynb"
+    "test.ipynb",
+    "app.py"
 ]
 for filepath in list_of_files:
     filepath = Path(filepath)
